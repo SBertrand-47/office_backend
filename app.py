@@ -10,8 +10,14 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = 'your_secret_key'  # Secret key for session management
 
+
+app.config['SESSION_COOKIE_SECURE'] = True  # Ensures cookies are only sent over HTTPS
+app.config['SESSION_COOKIE_HTTPONLY'] = True  # Protects cookies from being accessed by client-side scripts
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Ensures cookies are sent in cross-origin requests
+
 # Enable CORS
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=['http://localhost:3000', 'https://3590-164-119-5-200.ngrok-free.app'])
+
 # Initialize the database
 db.init_app(app)
 
